@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 
 //LANDING
 app.get('/', function(req, res) {
-	res.send('HOMEPAGE');
+	res.render('index');
 });
 
 //LOGIN
