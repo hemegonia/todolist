@@ -14,7 +14,14 @@ app.get('/', function(req, res) {
 });
 
 //LOGIN
+app.get('/login', function(req, res) {
+	res.render('login');
+});
+
 //SIGN UP
+app.get('/', function(req, res) {
+	res.render('register');
+});
 
 /////////////////////////////////////////
 //      todo CRUD ROUTES
