@@ -36,11 +36,20 @@ app.get('/register', function (req, res) {
 /////////////////////////////////////////
 //      list CRUD ROUTES
 //INDEX
+app.get('/lists', function (req, res) {
+	res.render('./lists/index');
+});
 //SHOW
 //EDIT
 //UPDATE
 //NEW
+app.get('/lists/new', function (req, res) {
+	res.render('./lists/new');
+});
 //CREATE
+app.post('/lists', function (req, res) {
+	res.send("SUBMITTED NEW LIST REQUEST");
+});
 //DELETE
 
 app.listen(process.env.PORT || 3000, function (err) {
