@@ -9,17 +9,17 @@ app.set('view engine', 'ejs');
 //      ROUTES
 
 //LANDING
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
 	res.render('index');
 });
 
 //LOGIN
-app.get('/login', function(req, res) {
+app.get('/login', function (req, res) {
 	res.render('login');
 });
 
 //SIGN UP
-app.get('/', function(req, res) {
+app.get('/register', function (req, res) {
 	res.render('register');
 });
 
@@ -43,11 +43,10 @@ app.get('/', function(req, res) {
 //CREATE
 //DELETE
 
-app.listen(process.env.PORT || 3000, function(err) {
+app.listen(process.env.PORT || 3000, function (err) {
 	if (err) {
 		console.log(err);
-	}
-	else {
+	} else {
 		console.log('Server is up');
 	}
 });
