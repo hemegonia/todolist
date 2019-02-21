@@ -3,6 +3,13 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	bodyParser = require('body-parser');
 
+//Models
+var List = require('./models/lists');
+
+mongoose.connect('mongodb://localhost:27017/todo_app', {
+	useNewUrlParser: true
+});
+
 app.set('view engine', 'ejs');
 
 /////////////////////////////////////////////
@@ -40,6 +47,9 @@ app.get('/lists', function (req, res) {
 	res.render('./lists/index');
 });
 //SHOW
+app.get('/lists/:id', function (req, res) {
+	res.render('./lists/index');
+});
 //EDIT
 //UPDATE
 //NEW
@@ -48,7 +58,8 @@ app.get('/lists/new', function (req, res) {
 });
 //CREATE
 app.post('/lists', function (req, res) {
-	res.send("SUBMITTED NEW LIST REQUEST");
+	// res.send("SUBMITTED NEW LIST REQUEST");
+
 });
 //DELETE
 
