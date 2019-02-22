@@ -11,6 +11,9 @@ mongoose.connect('mongodb://localhost:27017/todo_app', {
 });
 
 app.set('view engine', 'ejs');
+bodyParser.urlencoded({
+	extended: true
+});
 
 /////////////////////////////////////////////
 //      ROUTES
@@ -46,16 +49,17 @@ app.get('/register', function (req, res) {
 app.get('/lists', function (req, res) {
 	res.render('./lists/index');
 });
-//SHOW
-app.get('/lists/:id', function (req, res) {
-	res.render('./lists/index');
-});
-//EDIT
-//UPDATE
 //NEW
 app.get('/lists/new', function (req, res) {
 	res.render('./lists/new');
 });
+//SHOW
+app.get('/lists/:id', function (req, res) {
+	res.send(req.params.id);
+});
+//EDIT
+//UPDATE
+
 //CREATE
 app.post('/lists', function (req, res) {
 	// res.send("SUBMITTED NEW LIST REQUEST");
