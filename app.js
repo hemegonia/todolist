@@ -11,9 +11,10 @@ mongoose.connect('mongodb://localhost:27017/todo_app', {
 });
 
 app.set('view engine', 'ejs');
-bodyParser.urlencoded({
+app.use(bodyParser.json()); // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 	extended: true
-});
+}));
 
 /////////////////////////////////////////////
 //      ROUTES
@@ -47,7 +48,16 @@ app.get('/register', function (req, res) {
 //      list CRUD ROUTES
 //INDEX
 app.get('/lists', function (req, res) {
-	res.render('./lists/index');
+	List.find({}, function (err, lists) {
+		if (err) {
+			console.log(err);
+			res.send('Index list request failed');
+		} else {
+			res.render('/lists/index', {
+				lists: lists
+			});
+		}
+	});
 });
 //NEW
 app.get('/lists/new', function (req, res) {
@@ -58,14 +68,30 @@ app.get('/lists/:id', function (req, res) {
 	res.send(req.params.id);
 });
 //EDIT
+
 //UPDATE
 
 //CREATE
 app.post('/lists', function (req, res) {
-	// res.send("SUBMITTED NEW LIST REQUEST");
-
+	List.create({
+		author: req.body.author,
+		name: req.body.name
+	}, function (err) {
+		if (err) {
+			console.log(err);
+			res.send('Create list request failed');
+		} else {
+			res.redirect('/lists');
+		}
+	});
 });
+
 //DELETE
+
+//DEFAULT ROUTE
+app.get('*', function (req, res) {
+	res.send("ERROR 404");
+});
 
 app.listen(process.env.PORT || 3000, function (err) {
 	if (err) {
