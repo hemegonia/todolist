@@ -1,11 +1,16 @@
 <% include ../partials/header %>
 
 <h1>Lists Index</h1>
-
+<h2>Create New List</h2>
+<form action="/lists" method="POST">
+    <input type="text" name="author" placeholder="username" value="TestUsername">
+    <input type="text" name="name" placeholder="name of new list" value="Test Title">
+    <button>Submit</button>
+</form>
 <ul>
     <% lists.forEach(function(list){ %>
     <li><a href="/lists/<%= list._id %>">
-            <%= list.name %></a></li>
+            <%= list.name %></a><a href="#">EDIT</a><a href="#">DELETE</a></li>
     <% }); %>
 </ul>
 <% include ../partials/footer %>

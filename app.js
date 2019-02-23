@@ -1,12 +1,13 @@
 var express = require('express'),
 	app = express(),
 	mongoose = require('mongoose'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	methodOverride = require('method-override');
 
 //Models
 var List = require('./models/lists');
 var Todo = require('./models/todos');
-
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/todo_app', {
 	useNewUrlParser: true
 });
@@ -16,6 +17,7 @@ app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 	extended: true
 }));
+app.use(methodOverride('_method'));
 
 /////////////////////////////////////////////
 //      ROUTES
@@ -67,6 +69,17 @@ app.post('/lists/:id/todo', function (req, res) {
 
 });
 //DELETE
+app.delete('/lists/:id/todo/:todo_id', function (req, res) {
+	Todo.findById(req.params.todo_id, function (err, todo) {
+		if (err) {
+			console.log(err);
+			res.send('Delete todo request failed');
+		} else {
+			todo.remove();
+			res.redirect('/lists/' + req.params.id);
+		}
+	});
+});
 
 /////////////////////////////////////////
 //      list CRUD ROUTES
@@ -96,7 +109,6 @@ app.get('/lists/:id', function (req, res) {
 			console.log(err);
 			res.send('Show list request failed');
 		} else {
-			console.log(list);
 			res.render('./lists/show', {
 				list: list
 			});
@@ -122,8 +134,8 @@ app.post('/lists', function (req, res) {
 		}
 	});
 });
-
 //DELETE
+
 
 //DEFAULT ROUTE
 app.get('*', function (req, res) {

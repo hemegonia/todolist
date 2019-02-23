@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Todo = require('./todos');
 
 var listSchema = new mongoose.Schema({
     name: String,
@@ -19,6 +20,14 @@ var listSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'Todo'
     }]
+});
+
+listSchema.pre('remove', function (list) {
+    Todo.remove({
+        _id: {
+            $in: list.todos
+        }
+    });
 });
 
 var List = mongoose.model('List', listSchema);

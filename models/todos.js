@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var List = require('./lists');
 
 var todoSchema = new mongoose.Schema({
     text: String,
@@ -11,6 +12,23 @@ var todoSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+});
+
+todoSchema.pre('remove', function (next) {
+    var todo = this;
+    todo.model('List').updateMany({
+            todos: {
+                $in: todo._id
+            }
+        }, {
+            $pull: {
+                todos: todo._id
+            }
+        },
+        next
+    );
+
+    console.log('you deleted a todo');
 });
 
 var Todo = mongoose.model('Todo', todoSchema);
