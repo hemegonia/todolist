@@ -1,0 +1,14 @@
+<% include ../partials/header %>
+
+<h1>
+    <%= list.name %>
+</h1>
+
+<ul>
+    <% list.todos.forEach(function(todo){ %>
+    <li>
+        <%= todo.text %>
+    </li>
+    <% }); %>
+</ul>
+<% include ../partials/footer %>

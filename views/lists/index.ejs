@@ -2,4 +2,10 @@
 
 <h1>Lists Index</h1>
 
+<ul>
+    <% lists.forEach(function(list){ %>
+    <li><a href="/lists/<%= list._id %>">
+            <%= list.name %></a></li>
+    <% }); %>
+</ul>
 <% include ../partials/footer %>

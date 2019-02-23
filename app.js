@@ -5,6 +5,7 @@ var express = require('express'),
 
 //Models
 var List = require('./models/lists');
+var Todo = require('./models/todos');
 
 mongoose.connect('mongodb://localhost:27017/todo_app', {
 	useNewUrlParser: true
@@ -42,6 +43,29 @@ app.get('/register', function (req, res) {
 //UPDATE
 //NEW
 //CREATE
+app.post('/lists/:id/todo', function (req, res) {
+	List.findById(req.params.id, function (err, list) {
+		if (err) {
+			console.log(err);
+			res.send('Find list request failed');
+		} else {
+			Todo.create({
+				author: req.body.author,
+				text: req.body.text
+			}, function (err, todo) {
+				if (err) {
+					console.log(err);
+					res.send('Create todo request failed');
+				} else {
+					list.todos.push(todo._id);
+					list.save();
+					res.redirect('/lists/' + req.params.id);
+				}
+			});
+		}
+	});
+
+});
 //DELETE
 
 /////////////////////////////////////////
@@ -53,7 +77,7 @@ app.get('/lists', function (req, res) {
 			console.log(err);
 			res.send('Index list request failed');
 		} else {
-			res.render('/lists/index', {
+			res.render('./lists/index', {
 				lists: lists
 			});
 		}
@@ -65,7 +89,20 @@ app.get('/lists/new', function (req, res) {
 });
 //SHOW
 app.get('/lists/:id', function (req, res) {
-	res.send(req.params.id);
+	List.findById(req.params.id).
+	populate('todos').
+	exec(function (err, list) {
+		if (err) {
+			console.log(err);
+			res.send('Show list request failed');
+		} else {
+			console.log(list);
+			res.render('./lists/show', {
+				list: list
+			});
+		}
+	});
+
 });
 //EDIT
 
@@ -90,7 +127,7 @@ app.post('/lists', function (req, res) {
 
 //DEFAULT ROUTE
 app.get('*', function (req, res) {
-	res.send("ERROR 404");
+	res.sendStatus(404);
 });
 
 app.listen(process.env.PORT || 3000, function (err) {

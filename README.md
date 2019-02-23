@@ -4,7 +4,7 @@ Summary
 
 Planning
     Database
-        Users
+        Users (Stage 2)
         Todo item
         Users <- Lists <- Todo
         
