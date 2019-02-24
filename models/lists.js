@@ -22,12 +22,13 @@ var listSchema = new mongoose.Schema({
     }]
 });
 
-listSchema.pre('remove', function (list) {
-    Todo.remove({
+listSchema.pre('remove', function (next) {
+    Todo.deleteMany({
         _id: {
-            $in: list.todos
+            $in: this.todos
         }
-    });
+    }, next);
+    console.log('you deleted a list');
 });
 
 var List = mongoose.model('List', listSchema);
