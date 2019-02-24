@@ -4,23 +4,12 @@
     <%= list.name %>
 </h1>
 <div class="form-container">
-    <form
-        class="ui form"
-        action="/lists/<%= list._id %>/todo"
-        method="POST"
-    >
-        <input
-            type="text"
-            name="author"
-            placeholder="username"
-            value="TestUserame"
-        >
-        <input
-            type="text"
-            name="text"
-            placeholder="name of new list"
-            value="Test todo task"
-        >
+    <form class="ui form" action="/lists/<%= list._id %>/todo"
+          method="POST">
+        <input type="text" name="author" placeholder="username"
+               value="TestUserame">
+        <input type="text" name="text" placeholder="name of new list"
+               value="Test todo task">
         <button class="tiny blue ui button">Submit</button>
     </form>
 </div>
@@ -29,14 +18,9 @@
     <% list.todos.forEach(function(todo){ %>
     <li>
         <%= todo.text %>
-        <a
-            class="tiny positive ui button"
-            href="#"
-        >EDIT</a>
-        <form
-            action="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=DELETE"
-            method="POST"
-        >
+        <a class="tiny positive ui button" href="#">EDIT</a>
+        <form action="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=DELETE"
+              method="POST">
             <button class="tiny negative ui button">DELETE</button>
         </form>
     </li>

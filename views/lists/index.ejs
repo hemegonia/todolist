@@ -1,43 +1,30 @@
 <% include ../partials/header %>
 
-
 <h2>Create New List</h2>
 
 <div class="form-container">
-    <form
-        class="ui form"
-        action="/lists"
-        method="POST"
-    >
-        <input
-            class="ui input focus"
-            type="text"
-            name="name"
-            placeholder="name of new list"
-            value="Test Title"
-            autofocus
-        >
+    <form class="ui form" action="/lists" method="POST">
+        <input class="ui input focus" type="text" name="name"
+               placeholder="name of new list" value="Test Title"
+               autofocus>
         <button class="tiny blue ui button">Submit</button>
     </form>
 </div>
 
 <h2>Lists Index</h2>
+
 <ul>
     <% lists.forEach(function(list){ %>
     <li>
         <a href="/lists/<%= list._id %>">
             <%= list.name %>
         </a>
-        <a
-            class="tiny positive ui button"
-            href="#"
-        >EDIT</a>
-        <form
-            action="/lists/<%= list._id %>?_method=DELETE"
-            method="POST"
-        >
+        <a class="tiny positive ui button" href="#">EDIT</a>
+        <form action="/lists/<%= list._id %>?_method=DELETE"
+              method="POST">
             <button class="tiny negative ui button">DELETE</button>
         </form>
         <% }); %>
 </ul>
+
 <% include ../partials/footer %>
