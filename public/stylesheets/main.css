@@ -6,7 +6,7 @@ form input {
    text-align: center;
 }
 
-.ui.container.content {
+#body-container {
    padding-top: 60px;
 }
 
@@ -14,6 +14,24 @@ form input {
    display: none;
 }
 
-.ui.fluid.button {
-   text-align: left;
+.ui.grid.custom-grid .column {
+   margin: 0;
+   padding: 0.75rem;
+}
+
+.ui.grid.custom-grid .column.twelve {
+   margin: 0;
+   padding: 0.75rem;
+   padding-left: 0;
+}
+
+.ui.grid.custom-grid {
+   height: 100%;
+}
+.custom-button {
+   height: 100%;
+}
+
+.custom-grid .vertical.menu {
+   height: 100%;
 }

@@ -10,8 +10,7 @@
             class="ui input focus"
             type="text"
             name="name"
-            placeholder="name of new list"
-            value="Test Title"
+            placeholder="Name of New List"
             autofocus
          />
       </div>
@@ -20,18 +19,12 @@
 </div>
 <div class="ui row divider"></div>
 <div class="ui row "><h2>Current Lists</h2></div>
-
-<div class="ui row three column grid stackable">
+<div class="ui row three column grid doubling stackable">
    <% lists.forEach(function(list){ %>
 
    <div class="column">
-      <div class="ui secondary menu">
-         <!-- <div class="fitted item">
-            <a class="ui icon positive button " href="#"
-               ><i class="i cursor icon"></i
-            ></a>
-         </div> -->
-         <div class=" item">
+      <div class="ui grid sixteen column custom-grid">
+         <div class="four wide column">
             <form
                class="hidden"
                id="<%= list._id %>"
@@ -41,16 +34,23 @@
             <button
                type="submit"
                form="<%= list._id %>"
-               class="ui negative icon button"
+               class="ui negative icon fluid button custom-button"
             >
                <i class="trash alternate icon"></i>
             </button>
          </div>
-         <a class="ui fluid button" href="/lists/<%= list._id %>">
-            <%= list.name %>
-         </a>
+         <div class="twelve wide column">
+            <div class="vertical menu fluid ui">
+               <a class="item custom-button" href="/lists/<%= list._id %>">
+                  <p>
+                     <%= list.name %>
+                  </p>
+               </a>
+            </div>
+         </div>
       </div>
    </div>
 
-   <% }); %> <% include ../partials/footer %>
+   <% }); %>
 </div>
+<% include ../partials/footer %>

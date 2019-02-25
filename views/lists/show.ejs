@@ -1,40 +1,61 @@
 <% include ../partials/header %>
 
-<h1>
-   <%= list.name %>
-</h1>
-
-<div class="form-container">
+<div class="row sixteen centered column">
+   <h2>Create New Tasks</h2>
+</div>
+<div class="form-container row sixteen centered column">
    <form class="ui form" action="/lists/<%= list._id %>/todo" method="POST">
-      <input
-         type="text"
-         name="author"
-         placeholder="username"
-         value="TestUserame"
-      />
-      <input
-         type="text"
-         name="text"
-         placeholder="name of new list"
-         value="Test todo task"
-      />
+      <div class="field">
+         <input
+            type="text"
+            name="text"
+            placeholder="Name of New Task"
+            autofocus
+         />
+      </div>
       <button class="tiny blue ui button">Submit</button>
    </form>
 </div>
+<div class="ui row divider"></div>
 
-<ul>
+<div class="ui row ">
+   <h2>
+      <%= list.name %>
+   </h2>
+</div>
+<div class="ui row three column grid doubling stackable">
    <% list.todos.forEach(function(todo){ %>
-   <li>
-      <%= todo.text %>
-      <a class="tiny positive ui button" href="#">EDIT</a>
-      <form
-         action="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=DELETE"
-         method="POST"
-      >
-         <button class="tiny negative ui button">DELETE</button>
-      </form>
-   </li>
+
+   <div class="column">
+      <div class="ui grid sixteen column custom-grid">
+         <div class="four wide column">
+            <form
+               class="hidden"
+               id="<%= todo._id %>"
+               action="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=DELETE"
+               method="POST"
+            ></form>
+            <button
+               type="submit"
+               form="<%= todo._id %>"
+               class="ui negative icon fluid button custom-button"
+            >
+               <i class="trash alternate icon"></i>
+            </button>
+         </div>
+         <div class="twelve wide column">
+            <div class="vertical menu fluid ui">
+               <a class="item custom-button" href="/lists/<%= list._id %>">
+                  <p>
+                     <%= todo.text %>
+                  </p>
+               </a>
+            </div>
+         </div>
+      </div>
+   </div>
+
    <% }); %>
-</ul>
+</div>
 
 <% include ../partials/footer %>

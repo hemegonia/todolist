@@ -7,7 +7,6 @@ var express = require('express'),
 //Models
 var List = require('./models/lists');
 var Todo = require('./models/todos');
-mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/todo_app', {
    useNewUrlParser: true
 });
