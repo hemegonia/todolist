@@ -1,30 +1,56 @@
 <% include ../partials/header %>
 
-<h2>Create New List</h2>
-
-<div class="form-container">
-    <form class="ui form" action="/lists" method="POST">
-        <input class="ui input focus" type="text" name="name"
-               placeholder="name of new list" value="Test Title"
-               autofocus>
-        <button class="tiny blue ui button">Submit</button>
-    </form>
+<div class="row sixteen centered column">
+   <h2>Create New List</h2>
 </div>
+<div class="form-container row sixteen centered column">
+   <form class="ui form" action="/lists" method="POST">
+      <div class="field">
+         <input
+            class="ui input focus"
+            type="text"
+            name="name"
+            placeholder="name of new list"
+            value="Test Title"
+            autofocus
+         />
+      </div>
+      <button class="tiny blue ui button">Submit</button>
+   </form>
+</div>
+<div class="ui row divider"></div>
+<div class="ui row "><h2>Current Lists</h2></div>
 
-<h2>Lists Index</h2>
+<div class="ui row three column grid stackable">
+   <% lists.forEach(function(list){ %>
 
-<ul>
-    <% lists.forEach(function(list){ %>
-    <li>
-        <a href="/lists/<%= list._id %>">
+   <div class="column">
+      <div class="ui secondary menu">
+         <!-- <div class="fitted item">
+            <a class="ui icon positive button " href="#"
+               ><i class="i cursor icon"></i
+            ></a>
+         </div> -->
+         <div class=" item">
+            <form
+               class="hidden"
+               id="<%= list._id %>"
+               action="/lists/<%= list._id %>?_method=DELETE"
+               method="POST"
+            ></form>
+            <button
+               type="submit"
+               form="<%= list._id %>"
+               class="ui negative icon button"
+            >
+               <i class="trash alternate icon"></i>
+            </button>
+         </div>
+         <a class="ui fluid button" href="/lists/<%= list._id %>">
             <%= list.name %>
-        </a>
-        <a class="tiny positive ui button" href="#">EDIT</a>
-        <form action="/lists/<%= list._id %>?_method=DELETE"
-              method="POST">
-            <button class="tiny negative ui button">DELETE</button>
-        </form>
-        <% }); %>
-</ul>
+         </a>
+      </div>
+   </div>
 
-<% include ../partials/footer %>
+   <% }); %> <% include ../partials/footer %>
+</div>

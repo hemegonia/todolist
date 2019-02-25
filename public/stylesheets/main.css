@@ -1,7 +1,19 @@
 .form-container {
-   max-width: 200px;
+   max-width: 350px;
+}
+
+form input {
+   text-align: center;
 }
 
 .ui.container.content {
    padding-top: 60px;
+}
+
+.hidden {
+   display: none;
+}
+
+.ui.fluid.button {
+   text-align: left;
 }

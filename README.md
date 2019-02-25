@@ -6,13 +6,14 @@ Database
 Users (Stage 2)
 Todo item
 Users <- Lists <- Todo
-  
- Interface
+
+Interface
 li
 checkboxes
 strikethrough
 css framework
 flash messages
+archive completed tasks
 
 Future Enhancement Ideas
 List sharing between users
