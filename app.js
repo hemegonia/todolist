@@ -46,6 +46,22 @@ app.get('/register', function(req, res) {
 //SHOW
 //EDIT
 //UPDATE
+app.put('/lists/:id/todo/:todo_id', function(req, res) {
+   update = {
+      title: req.body.title,
+      complete: req.body.complete,
+      modifiedDate: Date.now()
+   };
+   Todo.findByIdAndUpdate(req.params.todo_id, update, function(err, todo) {
+      if (err) {
+         console.log(err);
+         res.send('Update todo request failed');
+      } else {
+         res.redirect('/lists/' + req.params.id);
+      }
+   });
+});
+
 //NEW
 //CREATE
 app.post('/lists/:id/todo', function(req, res) {
@@ -57,7 +73,7 @@ app.post('/lists/:id/todo', function(req, res) {
          Todo.create(
             {
                author: 'test',
-               text: req.body.text
+               title: req.body.title
             },
             function(err, todo) {
                if (err) {
@@ -129,7 +145,7 @@ app.post('/lists', function(req, res) {
    List.create(
       {
          author: req.body.author,
-         name: req.body.name
+         title: req.body.title
       },
       function(err) {
          if (err) {

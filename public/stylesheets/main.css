@@ -25,13 +25,55 @@ form input {
    padding-left: 0;
 }
 
-.ui.grid.custom-grid {
-   height: 100%;
-}
-.custom-button {
-   height: 100%;
+.flex {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   padding: 0 !important;
 }
 
-.custom-grid .vertical.menu {
-   height: 100%;
+.flex button {
+   border: none;
+   cursor: pointer;
+   -webkit-transition-duration: 0.4s; /* Safari */
+   transition-duration: 0.4s;
+   height: 40%;
+   color: lightgrey;
+}
+
+.flex button.check {
+   height: 80%;
+}
+
+.flex button.check:hover {
+   color: steelblue;
+}
+
+.flex button.edit:hover {
+   color: green;
+}
+
+.flex button.trash:hover {
+   color: red;
+}
+
+@media screen and (max-width: 700px) {
+   .flex {
+      -webkit-flex-direction: row;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+   }
+
+   .flex button {
+      height: 80%;
+      flex: 1;
+      border: lightgray 1px dashed;
+      margin: 3px;
+   }
+}
+
+.complete.item.custom-button {
+   text-decoration: line-through;
 }

@@ -1,56 +1,56 @@
 <% include ../partials/header %>
 
 <div class="row sixteen centered column">
-   <h2>Create New List</h2>
+   <h2>Add New List</h2>
 </div>
 <div class="form-container row sixteen centered column">
    <form class="ui form" action="/lists" method="POST">
       <div class="field">
-         <input
-            class="ui input focus"
-            type="text"
-            name="name"
-            placeholder="Name of New List"
-            autofocus
-         />
+         <input type="text" name="title" placeholder="Name" autofocus />
       </div>
       <button class="tiny blue ui button">Submit</button>
    </form>
 </div>
 <div class="ui row divider"></div>
-<div class="ui row "><h2>Current Lists</h2></div>
-<div class="ui row three column grid doubling stackable">
+
+<div class="ui row one column grid doubling stackable">
    <% lists.forEach(function(list){ %>
 
    <div class="column">
-      <div class="ui grid sixteen column custom-grid">
-         <div class="four wide column">
+      <div class="ui grid sixteen column custom-grid centered">
+         <div class="flex">
+            <button type="submit" form="<%= list._id %>" class="check">
+               <i class="check square outline icon link large fitted"></i>
+            </button>
+         </div>
+
+         <div class="ten wide column">
+            <div class="vertical menu fluid ui">
+               <a class="item custom-button" href="/lists/<%= list._id %>">
+                  <p>
+                     <%= list.title %>
+                  </p>
+               </a>
+            </div>
+         </div>
+         <div class="flex">
             <form
                class="hidden"
                id="<%= list._id %>"
                action="/lists/<%= list._id %>?_method=DELETE"
                method="POST"
             ></form>
-            <button
-               type="submit"
-               form="<%= list._id %>"
-               class="ui negative icon fluid button custom-button"
-            >
-               <i class="trash alternate icon"></i>
+            <button type="submit" form="<%= list._id %>" class="edit">
+               <i class="edit outline icon link  fitted"></i>
             </button>
-         </div>
-         <div class="twelve wide column">
-            <div class="vertical menu fluid ui">
-               <a class="item custom-button" href="/lists/<%= list._id %>">
-                  <p>
-                     <%= list.name %>
-                  </p>
-               </a>
-            </div>
+            <button type="submit" form="<%= list._id %>" class="trash">
+               <i class="trash alternate outline link  fitted icon"></i>
+            </button>
          </div>
       </div>
    </div>
 
    <% }); %>
 </div>
+
 <% include ../partials/footer %>

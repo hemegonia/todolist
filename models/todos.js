@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var List = require('./lists');
 
 var todoSchema = new mongoose.Schema({
-   text: String,
+   title: String,
    author: String,
    creationDate: {
       type: Date,
@@ -11,6 +11,10 @@ var todoSchema = new mongoose.Schema({
    modifiedDate: {
       type: Date,
       default: Date.now
+   },
+   complete: {
+      type: Boolean,
+      default: false
    }
 });
 

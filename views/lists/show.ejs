@@ -1,14 +1,14 @@
 <% include ../partials/header %>
 
 <div class="row sixteen centered column">
-   <h2>Create New Tasks</h2>
+   <h2>Add New Task</h2>
 </div>
 <div class="form-container row sixteen centered column">
    <form class="ui form" action="/lists/<%= list._id %>/todo" method="POST">
       <div class="field">
          <input
             type="text"
-            name="text"
+            name="title"
             placeholder="Name of New Task"
             autofocus
          />
@@ -20,37 +20,52 @@
 
 <div class="ui row ">
    <h2>
-      <%= list.name %>
+      <%= list.title %>
    </h2>
 </div>
-<div class="ui row three column grid doubling stackable">
+<div class="ui row one column grid doubling stackable">
    <% list.todos.forEach(function(todo){ %>
-
    <div class="column">
-      <div class="ui grid sixteen column custom-grid">
-         <div class="four wide column">
+      <div class="ui grid sixteen column custom-grid centered">
+         <div class="flex">
+            <form
+               class="hidden"
+               id="<%= todo._id %>-put"
+               action="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=PUT"
+               method="POST"
+            >
+               <input
+                  type="text"
+                  name="complete"
+                  value="<%= !todo.complete %>"
+               />
+               <input type="text" name="title" value="<%= todo.title %>" />
+            </form>
+            <button type="submit" form="<%= todo._id %>-put" class="check">
+               <i class="check square outline icon link large fitted"></i>
+            </button>
+         </div>
+
+         <div class="twelve wide column">
+            <button
+               class="ui button fluid edit"
+               data-id="<%= todo._id %>"
+               data-href="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=PUT"
+            >
+               <%= todo.title %>
+            </button>
+         </div>
+         <div class="flex">
             <form
                class="hidden"
                id="<%= todo._id %>"
                action="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=DELETE"
                method="POST"
             ></form>
-            <button
-               type="submit"
-               form="<%= todo._id %>"
-               class="ui negative icon fluid button custom-button"
-            >
-               <i class="trash alternate icon"></i>
+
+            <button type="submit" form="<%= todo._id %>" class="trash">
+               <i class="trash alternate outline link large fitted icon"></i>
             </button>
-         </div>
-         <div class="twelve wide column">
-            <div class="vertical menu fluid ui">
-               <a class="item custom-button" href="/lists/<%= list._id %>">
-                  <p>
-                     <%= todo.text %>
-                  </p>
-               </a>
-            </div>
          </div>
       </div>
    </div>

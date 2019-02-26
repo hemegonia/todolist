@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Todo = require('./todos');
 
 var listSchema = new mongoose.Schema({
-   name: String,
+   title: String,
    author: String,
    description: {
       type: String,
@@ -21,7 +21,11 @@ var listSchema = new mongoose.Schema({
          type: mongoose.Schema.ObjectId,
          ref: 'Todo'
       }
-   ]
+   ],
+   complete: {
+      type: Boolean,
+      default: false
+   }
 });
 
 listSchema.pre('remove', function(next) {
