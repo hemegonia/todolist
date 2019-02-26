@@ -14,49 +14,6 @@ form input {
    display: none;
 }
 
-.ui.grid.custom-grid .column {
-   margin: 0;
-   padding: 0.75rem;
-}
-
-.ui.grid.custom-grid .column.twelve {
-   margin: 0;
-   padding: 0.75rem;
-   padding-left: 0;
-}
-
-.flex {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   padding: 0 !important;
-}
-
-.flex button {
-   border: none;
-   cursor: pointer;
-   -webkit-transition-duration: 0.4s; /* Safari */
-   transition-duration: 0.4s;
-   height: 40%;
-   color: lightgrey;
-}
-
-.flex button.check {
-   height: 80%;
-}
-
-.flex button.check:hover {
-   color: steelblue;
-}
-
-.flex button.edit:hover {
-   color: green;
-}
-
-.flex button.trash:hover {
-   color: red;
-}
-
 @media screen and (max-width: 700px) {
    .flex {
       -webkit-flex-direction: row;
@@ -74,6 +31,57 @@ form input {
    }
 }
 
-.complete.item.custom-button {
+button.complete.ui.button {
    text-decoration: line-through;
+}
+
+.custom-wrapper {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+}
+
+.custom-container {
+   display: flex;
+   flex-direction: row;
+   margin: 0.5em;
+   align-items: center;
+   justify-content: center;
+}
+
+.edit-container,
+.input-container,
+.delete-container {
+   flex: 1;
+   padding: 3px;
+   display: flex;
+   align-content: stretch;
+   align-items: stretch;
+   height: 100%;
+}
+body .edit-container {
+   flex: 4;
+}
+
+.custom-container .edit-container button {
+   align-self: stretch;
+}
+
+.custom-container button,
+.custom-container form {
+   width: 100%;
+   align-self: center;
+}
+
+.input-container button,
+.delete-container button {
+   max-width: 70px;
+}
+
+.input-container {
+   justify-content: flex-end;
+}
+
+.delete-container {
+   justify-content: flex-start;
 }

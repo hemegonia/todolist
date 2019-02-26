@@ -18,59 +18,63 @@
 </div>
 <div class="ui row divider"></div>
 
-<div class="ui row ">
+<div class="custom-wrapper">
    <h2>
       <%= list.title %>
    </h2>
-</div>
-<div class="ui row one column grid doubling stackable">
    <% list.todos.forEach(function(todo){ %>
-   <div class="column">
-      <div class="ui grid sixteen column custom-grid centered">
-         <div class="flex">
-            <form
-               class="hidden"
-               id="<%= todo._id %>-put"
-               action="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=PUT"
-               method="POST"
-            >
-               <input
-                  type="text"
-                  name="complete"
-                  value="<%= !todo.complete %>"
-               />
-               <input type="text" name="title" value="<%= todo.title %>" />
-            </form>
-            <button type="submit" form="<%= todo._id %>-put" class="check">
-               <i class="check square outline icon link large fitted"></i>
-            </button>
-         </div>
 
-         <div class="twelve wide column">
-            <button
-               class="ui button fluid edit"
-               data-id="<%= todo._id %>"
-               data-href="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=PUT"
-            >
-               <%= todo.title %>
-            </button>
-         </div>
-         <div class="flex">
-            <form
-               class="hidden"
-               id="<%= todo._id %>"
-               action="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=DELETE"
-               method="POST"
-            ></form>
+   <div class="custom-container" <% if(todo.complete){ %>
+      style="order: 2;" <%}%> >
+      <div class="input-container">
+         <form
+            class="hidden"
+            id="<%= todo._id %>-put"
+            action="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=PUT"
+            method="POST"
+         >
+            <input type="text" name="complete" value="<%= !todo.complete %>" />
+            <input type="text" name="title" value="<%= todo.title %>" />
+         </form>
+         <button
+            class="ui positive button "
+            type="submit"
+            form="<%= todo._id %>-put"
+         >
+            <i class="check square outline icon link large fitted"></i>
+         </button>
+      </div>
+      <div class="edit-container">
+         <button
+            class="ui button edit <% if(todo.complete){ %>complete disabled<%}%>"
+            data-id="<%= todo._id %>"
+            data-href="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=PUT"
+         >
+            <%= todo.title %>
+         </button>
+      </div>
+      <div class="delete-container">
+         <form
+            class="hidden"
+            id="<%= todo._id %>"
+            action="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=DELETE"
+            method="POST"
+         ></form>
 
-            <button type="submit" form="<%= todo._id %>" class="trash">
-               <i class="trash alternate outline link large fitted icon"></i>
-            </button>
-         </div>
+         <button
+            class="ui negative button"
+            type="submit"
+            form="<%= todo._id %>"
+         >
+            <i class="trash alternate outline link large fitted icon"></i>
+         </button>
       </div>
    </div>
-
    <% }); %>
+   <div class="custom-container" style="order: 1;">
+      <h2>
+         COMPLETED
+      </h2>
+   </div>
 </div>
-
 <% include ../partials/footer %>
