@@ -36,6 +36,17 @@
             <div class="header">
                <i class="list alternate outline icon"></i> <%= list.title %>
             </div>
+            <!-- prettier-ignore -->
+            <div class="meta">
+               <em>
+                  <% if(!list.complete){ %>
+                     updated
+                  <% } else { %>
+                     completed
+                  <% } %>
+                  <%= moment(list.modifiedDate).fromNow(); %>
+               </em>
+            </div>
          </div>
          <div class="extra content">
             <div class="ui two buttons">

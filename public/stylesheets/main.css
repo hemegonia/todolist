@@ -45,7 +45,15 @@ button.complete.ui.button {
    text-decoration-line: underline;
    text-decoration-style: dotted;
    text-decoration-color: lightgray;
-   text
+}
+
+.list-header h2,
+.list-header p {
+   margin: 0;
+}
+.list-header p {
+   color: lightslategray;
+   margin-left: 2em;
 }
 .custom-wrapper-i {
    display: flex;

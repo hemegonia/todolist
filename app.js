@@ -11,6 +11,8 @@ mongoose.connect('mongodb://localhost:27017/todo_app', {
    useNewUrlParser: true
 });
 
+var moment = require('moment');
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(
@@ -112,7 +114,8 @@ app.get('/lists', function(req, res) {
          res.send('Index list request failed');
       } else {
          res.render('./lists/index', {
-            lists: lists
+            lists: lists,
+            moment: moment
          });
       }
    });
@@ -131,7 +134,8 @@ app.get('/lists/:id', function(req, res) {
             res.send('Show list request failed');
          } else {
             res.render('./lists/show', {
-               list: list
+               list: list,
+               moment: moment
             });
          }
       });

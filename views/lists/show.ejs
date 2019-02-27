@@ -28,6 +28,13 @@
          <i class="edit outline link icon small grey"></i>
          <em><%= list.title %></em>
       </h2>
+
+      <p>
+         <em>
+            <% if(!list.complete){ %> created <% } else { %> completed <% } %>
+            <%= moment(list.creationDate).fromNow(); %>
+         </em>
+      </p>
    </div>
    <% list.todos.forEach(function(todo){ %>
 

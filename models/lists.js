@@ -16,6 +16,7 @@ var listSchema = new mongoose.Schema({
       type: Date,
       default: Date.now
    },
+
    todos: [
       {
          type: mongoose.Schema.ObjectId,
