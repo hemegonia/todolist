@@ -14,6 +14,8 @@ mongoose.connect(
    }
 );
 
+mongoose.set('useFindAndModify', false);
+
 var moment = require('moment');
 
 app.set('view engine', 'ejs');
@@ -37,6 +39,7 @@ var updateList = function(id, res) {
          res.send('Update list request failed');
       }
    });
+   return;
 };
 /////////////////////////////////////////////
 //      ROUTES
