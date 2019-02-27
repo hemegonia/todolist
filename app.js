@@ -102,9 +102,10 @@ app.post('/lists/:id/todo', function(req, res) {
                   res.send('Create todo request failed');
                } else {
                   list.todos.push(todo._id);
-                  list.save();
-                  updateList(req.params.id, res, function(id, res) {
-                     res.redirect('/lists/' + id);
+                  list.save(function(err) {
+                     updateList(req.params.id, res, function(id, res) {
+                        res.redirect('/lists/' + id);
+                     });
                   });
                }
             }

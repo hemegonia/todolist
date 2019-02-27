@@ -30,7 +30,7 @@
    <div class="custom-container-i" <% if(list.complete){ %>
       style="order: 2;" <%}%> >
       <a
-         class="<% if(moment(Date.now()).diff(list.modifiedDate,"seconds")<=60){%>
+         class="<% if(moment(Date.now()).diff(list.creationDate,"seconds")<=5){%>
          fa-beat black<%}%> ui card <% if(list.complete){ %>complete disabled<%}%>"
          href="/lists/<%= list._id %>"
       >
