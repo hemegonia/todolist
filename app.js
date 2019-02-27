@@ -32,7 +32,7 @@ app.use(express.static('public'));
 
 //LANDING
 app.get('/', function(req, res) {
-   res.render('index');
+   res.redirect('lists');
 });
 
 //LOGIN
