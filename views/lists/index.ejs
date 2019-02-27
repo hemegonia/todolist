@@ -30,11 +30,14 @@
    <div class="custom-container-i" <% if(list.complete){ %>
       style="order: 2;" <%}%> >
       <a
-         class="ui card <% if(list.complete){ %>complete disabled<%}%>"
+         class="<% if(moment(Date.now()).diff(list.modifiedDate,"seconds")<=60){%>
+         fa-beat black<%}%> ui card <% if(list.complete){ %>complete disabled<%}%>"
          href="/lists/<%= list._id %>"
       >
+         
          <div class="content">
             <div class="header">
+               
                <i class="list alternate outline icon"></i> <%= list.title %>
             </div>
             <!-- prettier-ignore -->
