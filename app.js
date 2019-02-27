@@ -190,7 +190,7 @@ app.post('/lists', function(req, res) {
             console.log(err);
             res.send('Create list request failed');
          } else {
-            res.redirect('/lists/' + list._id);
+            res.redirect('/lists');
          }
       }
    );
