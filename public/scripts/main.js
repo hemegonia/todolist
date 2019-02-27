@@ -1,4 +1,4 @@
-var query = document.body.querySelectorAll('button.edit');
+var query = document.body.querySelectorAll('button.edit, h2.edit');
 
 var changeToInput = function() {
    var parent = this.parentElement;

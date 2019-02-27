@@ -6,51 +6,84 @@
 <div class="form-container row sixteen centered column">
    <form class="ui form" action="/lists" method="POST">
       <div class="field">
-         <input type="text" name="title" placeholder="Name" autofocus />
+         <input
+            type="text"
+            name="title"
+            placeholder="New List Name"
+            autofocus
+         />
       </div>
       <button class="tiny blue ui button">Submit</button>
    </form>
 </div>
 <div class="ui row divider"></div>
 
-<div class="ui row one column grid doubling stackable">
+<div class="custom-wrapper-i">
+   <div class="custom-container-i state-header" id="active-header">
+      <h2 class="ui block header">
+         ACTIVE LISTS
+      </h2>
+   </div>
    <% lists.forEach(function(list){ %>
 
-   <div class="column">
-      <div class="ui grid sixteen column custom-grid centered">
-         <div class="flex">
-            <button type="submit" form="<%= list._id %>" class="check">
-               <i class="check square outline icon link large fitted"></i>
-            </button>
-         </div>
-
-         <div class="ten wide column">
-            <div class="vertical menu fluid ui">
-               <a class="item custom-button" href="/lists/<%= list._id %>">
-                  <p>
-                     <%= list.title %>
-                  </p>
-               </a>
+   <div class="custom-container-i" <% if(list.complete){ %>
+      style="order: 2;" <%}%> >
+      <a
+         class="ui card <% if(list.complete){ %>complete disabled<%}%>"
+         href="/lists/<%= list._id %>"
+      >
+         <div class="content">
+            <div class="header">
+               <i class="list alternate outline icon"></i> <%= list.title %>
             </div>
          </div>
-         <div class="flex">
-            <form
-               class="hidden"
-               id="<%= list._id %>"
-               action="/lists/<%= list._id %>?_method=DELETE"
-               method="POST"
-            ></form>
-            <button type="submit" form="<%= list._id %>" class="edit">
-               <i class="edit outline icon link  fitted"></i>
-            </button>
-            <button type="submit" form="<%= list._id %>" class="trash">
-               <i class="trash alternate outline link  fitted icon"></i>
-            </button>
+         <div class="extra content">
+            <div class="ui two buttons">
+               <form
+                  class="hidden"
+                  id="<%= list._id %>-put"
+                  action="/lists/<%= list._id %>?_method=PUT"
+                  method="POST"
+               >
+                  <input
+                     type="text"
+                     name="complete"
+                     value="<%= !list.complete %>"
+                  />
+                  <input type="text" name="title" value="<%= list.title %>" />
+               </form>
+               <button
+                  class="ui basic positive button "
+                  type="submit"
+                  form="<%= list._id %>-put"
+               >
+                  <i class="check square outline icon link large fitted"></i>
+                  Done
+               </button>
+               <form
+                  class="hidden"
+                  id="<%= list._id %>"
+                  action="/lists/<%= list._id %>?_method=DELETE"
+                  method="POST"
+               ></form>
+
+               <button
+                  class="ui basic negative button"
+                  type="submit"
+                  form="<%= list._id %>"
+               >
+                  <i class="trash alternate outline link large fitted icon"></i>
+                  Delete
+               </button>
+            </div>
          </div>
-      </div>
+      </a>
    </div>
-
    <% }); %>
+   <div class="custom-container-i state-header" id="">
+      <h2 class="ui block header disabled">
+         COMPLETED
+      </h2>
+   </div>
 </div>
-
 <% include ../partials/footer %>

@@ -19,9 +19,16 @@
 <div class="ui row divider"></div>
 
 <div class="custom-wrapper">
-   <h2>
-      <%= list.title %>
-   </h2>
+   <div class="list-header">
+      <h2
+         data-id="<%= list._id %>"
+         data-href="/lists/<%= list._id %>?_method=PUT"
+         class="edit"
+      >
+         <i class="edit outline link icon small grey"></i>
+         <em><%= list.title %></em>
+      </h2>
+   </div>
    <% list.todos.forEach(function(todo){ %>
 
    <div class="custom-container" <% if(todo.complete){ %>
@@ -71,8 +78,8 @@
       </div>
    </div>
    <% }); %>
-   <div class="custom-container" style="order: 1;">
-      <h2>
+   <div class="custom-container state-header">
+      <h2 class="ui block header disabled">
          COMPLETED
       </h2>
    </div>

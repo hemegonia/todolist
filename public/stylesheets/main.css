@@ -40,6 +40,53 @@ button.complete.ui.button {
    flex-direction: column;
    width: 100%;
 }
+.list-header {
+   margin-bottom: 20px;
+   text-decoration-line: underline;
+   text-decoration-style: dotted;
+   text-decoration-color: lightgray;
+   text
+}
+.custom-wrapper-i {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   align-content: stretch;
+   align-items: stretch;
+}
+
+.custom-container-i {
+   margin: 1rem;
+   flex: 1 0 0;
+   display: flex;
+   justify-content: center;
+}
+
+.custom-container-i .ui.card {
+   width: 100%;
+   min-width: 200px;
+   height: 100%;
+   max-width: 350px;
+}
+
+a.ui.card > .content > .header {
+   color: rgb(56, 120, 141);
+}
+
+div.state-header {
+   order: 1;
+   min-width: 100%;
+   width: 100%;
+   flex: 1;
+   justify-content: center;
+   text-align: center;
+   margin-top: 75px;
+}
+
+#active-header {
+   order: 0;
+   margin-top: 0;
+}
 
 .custom-container {
    display: flex;
@@ -63,18 +110,18 @@ body .edit-container {
    flex: 4;
 }
 
-.custom-container .edit-container button {
+.custom-container .edit-container .button {
    align-self: stretch;
 }
 
-.custom-container button,
+.custom-container .button,
 .custom-container form {
    width: 100%;
    align-self: center;
 }
 
-.input-container button,
-.delete-container button {
+.input-container .button,
+.delete-container .button {
    max-width: 70px;
 }
 

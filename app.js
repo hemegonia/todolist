@@ -139,7 +139,21 @@ app.get('/lists/:id', function(req, res) {
 //EDIT
 
 //UPDATE
-
+app.put('/lists/:id', function(req, res) {
+   update = {
+      title: req.body.title,
+      complete: req.body.complete,
+      modifiedDate: Date.now()
+   };
+   List.findByIdAndUpdate(req.params.id, update, function(err, list) {
+      if (err) {
+         console.log(err);
+         res.send('Update list request failed');
+      } else {
+         res.redirect('back');
+      }
+   });
+});
 //CREATE
 app.post('/lists', function(req, res) {
    List.create(
@@ -147,12 +161,12 @@ app.post('/lists', function(req, res) {
          author: req.body.author,
          title: req.body.title
       },
-      function(err) {
+      function(err, list) {
          if (err) {
             console.log(err);
             res.send('Create list request failed');
          } else {
-            res.redirect('/lists');
+            res.redirect('/lists/' + list._id);
          }
       }
    );
