@@ -29,7 +29,7 @@ app.use(
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
 
-var updateList = function(id, res) {
+var updateList = function(id, res, next) {
    List.findByIdAndUpdate(id, { modifiedDate: Date.now() }, function(
       err,
       list
@@ -38,8 +38,8 @@ var updateList = function(id, res) {
          console.log(err);
          res.send('Update list request failed');
       }
+      next(id, res);
    });
-   return;
 };
 /////////////////////////////////////////////
 //      ROUTES
@@ -76,8 +76,9 @@ app.put('/lists/:id/todo/:todo_id', function(req, res) {
          console.log(err);
          res.send('Update todo request failed');
       } else {
-         updateList(req.params.id, res);
-         res.redirect('/lists/' + req.params.id);
+         updateList(req.params.id, res, function() {
+            res.redirect('/lists/' + req.params.id);
+         });
       }
    });
 });
@@ -102,8 +103,9 @@ app.post('/lists/:id/todo', function(req, res) {
                } else {
                   list.todos.push(todo._id);
                   list.save();
-                  updateList(req.params.id, res);
-                  res.redirect('/lists/' + req.params.id);
+                  updateList(req.params.id, res, function(id, res) {
+                     res.redirect('/lists/' + id);
+                  });
                }
             }
          );
@@ -118,8 +120,9 @@ app.delete('/lists/:id/todo/:todo_id', function(req, res) {
          res.send('Delete todo request failed');
       } else {
          todo.remove();
-         updateList(req.params.id, res);
-         res.redirect('/lists/' + req.params.id);
+         updateList(req.params.id, res, function() {
+            res.redirect('/lists/' + req.params.id);
+         });
       }
    });
 });
