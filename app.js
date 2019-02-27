@@ -7,9 +7,12 @@ var express = require('express'),
 //Models
 var List = require('./models/lists');
 var Todo = require('./models/todos');
-mongoose.connect('mongodb://localhost:27017/todo_app', {
-   useNewUrlParser: true
-});
+mongoose.connect(
+   process.env.DATABASEURL || 'mongodb://localhost:27017/todo_app',
+   {
+      useNewUrlParser: true
+   }
+);
 
 var moment = require('moment');
 
