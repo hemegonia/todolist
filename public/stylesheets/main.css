@@ -39,6 +39,8 @@ button.complete.ui.button {
    display: flex;
    flex-direction: column;
    width: 100%;
+   align-content: stretch;
+   align-items: stretch;
 }
 .list-header {
    margin-bottom: 20px;
@@ -84,7 +86,7 @@ a.ui.card > .content > .header {
 div.state-header {
    order: 1;
    min-width: 90%;
-   width: 90%;
+   width: 100%;
    flex: 1;
    justify-content: center;
    text-align: center;

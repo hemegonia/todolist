@@ -51,11 +51,13 @@
             <input type="text" name="title" value="<%= todo.title %>" />
          </form>
          <button
-            class="ui positive button "
+            class="ui <% if(todo.complete){ %> grey <%} else {%> positive <%}%> button"
             type="submit"
             form="<%= todo._id %>-put"
          >
-            <i class="check square outline icon link large fitted"></i>
+            <i
+               class="<% if(todo.complete){ %> undo <%} else {%> check square outline <%}%>  icon link large fitted"
+            ></i>
          </button>
       </div>
       <div class="edit-container">

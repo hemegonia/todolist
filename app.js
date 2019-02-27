@@ -27,6 +27,17 @@ app.use(
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
 
+var updateList = function(id, res) {
+   List.findByIdAndUpdate(id, { modifiedDate: Date.now() }, function(
+      err,
+      list
+   ) {
+      if (err) {
+         console.log(err);
+         res.send('Update list request failed');
+      }
+   });
+};
 /////////////////////////////////////////////
 //      ROUTES
 
@@ -62,6 +73,7 @@ app.put('/lists/:id/todo/:todo_id', function(req, res) {
          console.log(err);
          res.send('Update todo request failed');
       } else {
+         updateList(req.params.id, res);
          res.redirect('/lists/' + req.params.id);
       }
    });
@@ -87,6 +99,7 @@ app.post('/lists/:id/todo', function(req, res) {
                } else {
                   list.todos.push(todo._id);
                   list.save();
+                  updateList(req.params.id, res);
                   res.redirect('/lists/' + req.params.id);
                }
             }
@@ -102,6 +115,7 @@ app.delete('/lists/:id/todo/:todo_id', function(req, res) {
          res.send('Delete todo request failed');
       } else {
          todo.remove();
+         updateList(req.params.id, res);
          res.redirect('/lists/' + req.params.id);
       }
    });

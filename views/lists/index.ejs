@@ -64,12 +64,13 @@
                   <input type="text" name="title" value="<%= list.title %>" />
                </form>
                <button
-                  class="ui basic positive button "
+                  class="ui <% if(list.complete){ %> grey <%} else {%> positive <%}%> basic button"
                   type="submit"
                   form="<%= list._id %>-put"
                >
-                  <i class="check square outline icon link large fitted"></i>
-                  Done
+                  <i
+                     class="<% if(list.complete){ %> undo <%} else {%> check square outline <%}%>  icon link large fitted"
+                  ></i>
                </button>
                <form
                   class="hidden"
@@ -84,7 +85,6 @@
                   form="<%= list._id %>"
                >
                   <i class="trash alternate outline link large fitted icon"></i>
-                  Delete
                </button>
             </div>
          </div>
