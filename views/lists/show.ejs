@@ -55,13 +55,13 @@
             form="<%= todo._id %>-put"
          >
             <i
-               class="<% if(todo.complete){ %> undo <%} else {%> check square outline <%}%>  icon link large fitted"
+               class="<% if(todo.complete){ %> undo <%} else {%> check square outline <%}%>  icon link fitted"
             ></i>
          </button>
       </div>
       <div class="edit-container">
          <button
-            class="ui button edit <% if(todo.complete){ %>complete disabled<%}%>"
+            class="ui button fluid edit <% if(todo.complete){ %>complete disabled<%}%>"
             data-id="<%= todo._id %>"
             data-href="/lists/<%= list._id %>/todo/<%= todo._id %>?_method=PUT"
          >
@@ -81,7 +81,7 @@
             type="submit"
             form="<%= todo._id %>"
          >
-            <i class="trash alternate outline link large fitted icon"></i>
+            <i class="trash alternate outline link  fitted icon"></i>
          </button>
       </div>
    </div>
