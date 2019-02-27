@@ -38,7 +38,8 @@
          <div class="content">
             <div class="header">
                
-               <i class="list alternate outline icon"></i> <%= list.title %>
+               <i class="folder open icon big"></i>
+               <p><%= list.title %></p>
             </div>
             <!-- prettier-ignore -->
             <div class="meta">
@@ -46,7 +47,7 @@
                   <% if(!list.complete){ %>
                      updated
                   <% } else { %>
-                     completed
+                     archived
                   <% } %>
                   <%= moment(list.modifiedDate).fromNow(); %>
                </em>
@@ -68,14 +69,15 @@
                   <input type="text" name="title" value="<%= list.title %>" />
                </form>
                <button
-                  class="ui <% if(list.complete){ %> grey <%} else {%> positive <%}%> basic button"
+                  class="ui <% if(list.complete){ %> grey <%} else {%> brown <%}%>  button"
                   type="submit"
                   form="<%= list._id %>-put"
                >
                   <i
-                     class="<% if(list.complete){ %> undo <%} else {%> check square outline <%}%>  icon link large fitted"
+                     class="<% if(list.complete){ %> undo <%} else {%> archive  <%}%>  icon link large fitted"
                   ></i>
                </button>
+               <% if(list.complete){ %>
                <form
                   class="hidden"
                   id="<%= list._id %>"
@@ -84,12 +86,13 @@
                ></form>
 
                <button
-                  class="ui basic negative button"
+                  class="ui negative button"
                   type="submit"
                   form="<%= list._id %>"
                >
                   <i class="trash alternate outline link large fitted icon"></i>
                </button>
+               <%}%>
             </div>
          </div>
       </a>
@@ -97,7 +100,7 @@
    <% }); %> <% if(lists.length !== 0){%>
    <div class="custom-container state-header">
       <h2 class="ui block header disabled">
-         COMPLETED
+         <i class="archive icon"></i>ARCHIVE
       </h2>
    </div>
    <%}%>
