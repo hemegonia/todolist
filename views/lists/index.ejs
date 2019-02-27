@@ -15,6 +15,7 @@
       </div>
    </form>
 </div>
+<% if(lists.length === 0){ %> <% include ../partials/nolist %> <% } else { %>
 <div class="ui mobile only row "><div class=""></div></div>
 <div class="ui computer tablet only row divider"></div>
 
@@ -90,11 +91,12 @@
          </div>
       </a>
    </div>
-   <% }); %>
-   <div class="custom-container-i state-header" id="">
+   <% }); %> <% if(lists.length !== 0){%>
+   <div class="custom-container state-header">
       <h2 class="ui block header disabled">
          COMPLETED
       </h2>
    </div>
+   <%}%>
 </div>
-<% include ../partials/footer %>
+<%}%> <% include ../partials/footer %>

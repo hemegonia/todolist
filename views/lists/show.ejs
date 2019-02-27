@@ -15,8 +15,9 @@
       </div>
    </form>
 </div>
+<% if(list.todos.length === 0){ %> <% include ../partials/nolist %> <% } else
+{%>
 <div class="ui computer tablet only row divider"></div>
-
 <div class="custom-wrapper">
    <div class="list-header">
       <h2
@@ -85,11 +86,12 @@
          </button>
       </div>
    </div>
-   <% }); %>
+   <% }); %> <% if(list.todos.length !== 0){%>
    <div class="custom-container state-header">
       <h2 class="ui block header disabled">
          COMPLETED
       </h2>
    </div>
+   <%}%>
 </div>
-<% include ../partials/footer %>
+<%}%> <% include ../partials/footer %>
