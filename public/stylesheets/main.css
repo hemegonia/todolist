@@ -5,7 +5,12 @@
 form input {
    text-align: center;
 }
-
+#time {
+   margin: 0;
+   padding: 0;
+   padding-right: 3em;
+   text-align: right;
+}
 #body-container {
    padding-top: 100px;
 }

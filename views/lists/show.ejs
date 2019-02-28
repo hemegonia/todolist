@@ -23,21 +23,32 @@
 <div class="ui computer tablet only row divider"></div>
 <div class="custom-wrapper">
    <div class="list-header">
-      <h2
+      <h1
          data-id="<%= list._id %>"
          data-href="/lists/<%= list._id %>?_method=PUT"
          class="edit"
       >
          <i class="edit outline link icon small grey"></i>
          <em><%= list.title %></em>
-      </h2>
+      </h1>
 
-      <p>
-         <em>
+      <p id="time">
+         <small>
             <% if(!list.complete){ %> created <% } else { %> completed <% } %>
             <%= moment(list.creationDate).fromNow(); %>
-         </em>
+         </small>
       </p>
+   </div>
+   <div class="custom-container state-header" id="active-header">
+      <h2 class="">
+         <i class="angle down tiny icon"></i>
+         <i class="angle down tiny icon"></i>
+         <i class="angle down tiny icon"></i>
+         <i class="clipboard list icon"></i> TO DO
+         <i class="angle down tiny icon"></i>
+         <i class="angle down tiny icon"></i>
+         <i class="angle down tiny icon"></i>
+      </h2>
    </div>
    <% list.todos.forEach(function(todo){ %>
 
@@ -91,8 +102,14 @@
    </div>
    <% }); %> <% if(list.todos.length !== 0){%>
    <div class="custom-container state-header">
-      <h2 class="ui block header disabled">
-         COMPLETED
+      <h2 class="">
+         <i class="angle down tiny icon"></i>
+         <i class="angle down tiny icon"></i>
+         <i class="angle down tiny icon"></i>
+         <i class="flag checkered icon"> </i> COMPLETED
+         <i class="angle down tiny icon"></i>
+         <i class="angle down tiny icon"></i>
+         <i class="angle down tiny icon"></i>
       </h2>
    </div>
    <%}%>
