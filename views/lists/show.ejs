@@ -1,20 +1,23 @@
 <% include ../partials/header %>
 
-<div class="row sixteen centered computer tablet only column">
-   <h2>Add New Task</h2>
-</div>
 <div class="form-container row sixteen centered column">
-   <form class="ui form" action="/lists/<%= list._id %>/todo" method="POST">
-      <div class="inline field">
+   <form
+      class="ui huge form"
+      action="/lists/<%= list._id %>/todo"
+      method="POST"
+   >
+      <div class="field">
+         <label><i class="plus icon"></i>Add New Task</label>
          <input
             type="text"
             name="title"
-            placeholder="New task name"
+            placeholder="Type name and press 'Enter'"
             autofocus
-         /><button class="tiny blue ui button">Submit</button>
+         />
       </div>
    </form>
 </div>
+
 <% if(list.todos.length === 0){ %> <% include ../partials/nolist %> <% } else
 {%>
 <div class="ui computer tablet only row divider"></div>
