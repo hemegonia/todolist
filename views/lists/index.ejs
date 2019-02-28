@@ -31,15 +31,17 @@
    <div class="custom-container-i" <% if(list.complete){ %>
       style="order: 2;" <%}%> >
       <a
-         class="<% if(moment(Date.now()).diff(list.creationDate,'seconds')<=5){%>
-         fa-beat black<%}%> ui card raised<% if(list.complete){ %>complete disabled<%}%>"
+         class="ui card raised<% if(list.complete){ %>complete disabled<%}%>"
          href="/lists/<%= list._id %>"
       >
          <div class="content">
             <div class="header">
                <p></p>
                <p><%= list.title %></p>
-               <button class="ui button green">
+               <button
+                  class="ui button green<% if(moment(Date.now()).diff(list.creationDate,'seconds')<=5){%>
+         fa-beat black<%}%>"
+               >
                   <i class="edit gray icon"></i>Edit
                </button>
                <p></p>
