@@ -1,28 +1,26 @@
 <% include ../partials/header %>
 
-<div class="row sixteen centered computer tablet only column">
-   <h2>Add New List</h2>
-</div>
 <div class="form-container row sixteen centered column">
-   <form class="ui form" action="/lists" method="POST">
-      <div class="inline field">
+   <form class="ui huge form" action="/lists" method="POST">
+      <div class="field">
+         <label><i class="plus icon"></i>Add New List</label>
          <input
             type="text"
             name="title"
-            placeholder="New list name"
+            placeholder="Type name and press 'Enter'"
             autofocus
-         /><button class="tiny blue ui button">Submit</button>
+         />
       </div>
    </form>
 </div>
 <% if(lists.length === 0){ %> <% include ../partials/nolist %> <% } else { %>
-<div class="ui mobile only row "><div class=""></div></div>
-<div class="ui computer tablet only row divider"></div>
+
+<div class="ui row divider"></div>
 
 <div class="custom-wrapper-i">
    <div class="custom-container-i state-header" id="active-header">
-      <h2 class="ui block header">
-         ACTIVE LISTS
+      <h2 class="ui disabled header">
+         <i class="play circle icon"></i> ACTIVE
       </h2>
    </div>
    <% lists.reverse().forEach(function(list){ %>
@@ -30,16 +28,19 @@
    <div class="custom-container-i" <% if(list.complete){ %>
       style="order: 2;" <%}%> >
       <a
-         class="<% if(moment(Date.now()).diff(list.creationDate,"seconds")<=5){%>
-         fa-beat black<%}%> ui card <% if(list.complete){ %>complete disabled<%}%>"
+         class="<% if(moment(Date.now()).diff(list.creationDate,'seconds')<=5){%>
+         fa-beat black<%}%> ui card raised<% if(list.complete){ %>complete disabled<%}%>"
          href="/lists/<%= list._id %>"
       >
-         
          <div class="content">
             <div class="header">
-               
-               <i class="folder open icon big"></i>
+               <p></p>
                <p><%= list.title %></p>
+               <button class="ui button green">
+                  <i class="edit gray icon"></i>Edit
+               </button>
+               <p></p>
+               <p></p>
             </div>
             <!-- prettier-ignore -->
             <div class="meta">
@@ -54,54 +55,53 @@
             </div>
          </div>
          <div class="extra content">
-            <div class="ui two buttons">
-               <form
-                  class="hidden"
-                  id="<%= list._id %>-put"
-                  action="/lists/<%= list._id %>?_method=PUT"
-                  method="POST"
-               >
-                  <input
-                     type="text"
-                     name="complete"
-                     value="<%= !list.complete %>"
-                  />
-                  <input type="text" name="title" value="<%= list.title %>" />
-               </form>
-               <button
-                  class="ui <% if(list.complete){ %> grey <%} else {%> brown <%}%>  button"
-                  type="submit"
-                  form="<%= list._id %>-put"
-               >
-                  <i
-                     class="<% if(list.complete){ %> undo <%} else {%> archive  <%}%>  icon link large fitted"
-                  ></i>
-               </button>
-               <% if(list.complete){ %>
-               <form
-                  class="hidden"
-                  id="<%= list._id %>"
-                  action="/lists/<%= list._id %>?_method=DELETE"
-                  method="POST"
-               ></form>
+            <form
+               class="hidden"
+               id="<%= list._id %>-put"
+               action="/lists/<%= list._id %>?_method=PUT"
+               method="POST"
+            >
+               <input
+                  type="text"
+                  name="complete"
+                  value="<%= !list.complete %>"
+               />
+               <input type="text" name="title" value="<%= list.title %>" />
+            </form>
+            <button
+               class="ui  <% if(list.complete){ %> grey <%} else {%> brown <%}%>  tiny button"
+               type="submit"
+               form="<%= list._id %>-put"
+            >
+               <i
+                  class="<% if(list.complete){ %> undo <%} else {%> archive  <%}%>  icon link  "
+               ></i>
+               <% if(!list.complete){ %> Archive <% } else { %> Undo <% } %>
+            </button>
+            <% if(list.complete){ %>
+            <form
+               class="hidden"
+               id="<%= list._id %>"
+               action="/lists/<%= list._id %>?_method=DELETE"
+               method="POST"
+            ></form>
 
-               <button
-                  class="ui negative button"
-                  type="submit"
-                  form="<%= list._id %>"
-               >
-                  <i class="trash alternate outline link large fitted icon"></i>
-               </button>
-               <%}%>
-            </div>
+            <button
+               class="ui negative tiny button"
+               type="submit"
+               form="<%= list._id %>"
+            >
+               <i class="trash alternate outline link  icon"></i> Delete
+            </button>
+            <%}%>
          </div>
       </a>
    </div>
    <% }); %> <% if(lists.length !== 0){%>
+
    <div class="custom-container state-header">
-      <h2 class="ui block header disabled">
-         <i class="archive icon"></i>ARCHIVE
-      </h2>
+      <div class="ui row divider"></div>
+      <h2 class="ui  header disabled"><i class="archive icon"></i>ARCHIVE</h2>
    </div>
    <%}%>
 </div>

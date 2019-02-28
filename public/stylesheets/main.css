@@ -1,5 +1,5 @@
 .form-container {
-   max-width: 350px;
+   max-width: 500px;
 }
 
 form input {
@@ -7,28 +7,11 @@ form input {
 }
 
 #body-container {
-   padding-top: 60px;
+   padding-top: 100px;
 }
 
 .hidden {
    display: none;
-}
-
-@media screen and (max-width: 700px) {
-   .flex {
-      -webkit-flex-direction: row;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      flex-grow: 1;
-   }
-
-   .flex button {
-      height: 80%;
-      flex: 1;
-      border: lightgray 1px dashed;
-      margin: 3px;
-   }
 }
 
 button.complete.ui.button {
