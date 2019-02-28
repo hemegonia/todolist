@@ -9,8 +9,9 @@ form input {
 #body-container {
    padding-top: 100px;
 }
-small {
-   color: grey;
+small,
+h2 {
+   color: rgb(185, 185, 185);
 }
 .hidden {
    display: none;
