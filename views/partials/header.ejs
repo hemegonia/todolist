@@ -26,13 +26,18 @@
          </a>
        
          <div class="right menu">
-            
-            <a class="item disabled" href="">
+            <% if(!currentUser){ %>
+            <a class="item" href="/login">
                Login
             </a>
-            <a class="item disabled" href="">
+            <a class="item" href="/register">
                Sign Up
             </a>
+            <% } else { %>
+            <a class="item" href="/logout">
+               Logout
+            </a>
+            <% } %>
          </div>
       </div>
       <div id="body-container" class="ui container content grid">

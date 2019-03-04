@@ -2,11 +2,16 @@ var express = require('express'),
    app = express(),
    mongoose = require('mongoose'),
    bodyParser = require('body-parser'),
-   methodOverride = require('method-override');
+   methodOverride = require('method-override'),
+   moment = require('moment'),
+   passport = require('passport'),
+   LocalStrategy = require('passport-local');
 
 //Models
 var List = require('./models/lists');
 var Todo = require('./models/todos');
+var User = require('./models/users');
+
 mongoose.connect(
    process.env.DATABASEURL || 'mongodb://localhost:27017/todo_app',
    {
@@ -15,8 +20,6 @@ mongoose.connect(
 );
 
 mongoose.set('useFindAndModify', false);
-
-var moment = require('moment');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.json()); // to support JSON-encoded bodies
@@ -28,6 +31,24 @@ app.use(
 );
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
+app.use(
+   require('express-session')({
+      secret: 'keyboard cat',
+      resave: false,
+      saveUninitialized: false
+   })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req, res, next) {
+   res.locals.currentUser = req.user;
+   next();
+});
 
 var updateList = function(id, res, next) {
    List.findByIdAndUpdate(id, { modifiedDate: Date.now() }, function(
@@ -41,22 +62,50 @@ var updateList = function(id, res, next) {
       next(id, res);
    });
 };
+
+/////////////////////////////////////////////
+//       USER AUTH
+app.get('/login', function(req, res) {
+   res.render('login');
+});
+
+app.post('/login', function(req, res) {
+   passport.authenticate('local')(req, res, function() {
+      res.redirect('/lists');
+   });
+});
+
+app.get('/register', function(req, res) {
+   res.render('register');
+});
+
+app.post('/register', function(req, res) {
+   User.register(
+      new User({ username: req.body.username }),
+      req.body.password,
+      function(err, user) {
+         if (err) {
+            console.log(err);
+         } else {
+            passport.authenticate('local')(req, res, function() {
+               res.redirect('/lists');
+            });
+         }
+      }
+   );
+});
+
+app.get('/logout', function(req, res) {
+   req.logout();
+   res.redirect('/');
+});
+
 /////////////////////////////////////////////
 //      ROUTES
 
 //LANDING
 app.get('/', function(req, res) {
    res.redirect('lists');
-});
-
-//LOGIN
-app.get('/login', function(req, res) {
-   res.render('login');
-});
-
-//SIGN UP
-app.get('/register', function(req, res) {
-   res.render('register');
 });
 
 /////////////////////////////////////////
