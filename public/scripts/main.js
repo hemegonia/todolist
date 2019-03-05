@@ -29,8 +29,12 @@ query.forEach(function(button) {
 var query = document.body.querySelector('#new-item');
 query.addEventListener('input', function() {
    this.previousElementSibling.classList.remove('hidden');
+   this.previousElementSibling.previousElementSibling.classList.add('hidden');
 });
 query.addEventListener('blur', function() {
    this.previousElementSibling.classList.add('hidden');
    this.value = '';
+   this.previousElementSibling.previousElementSibling.classList.remove(
+      'hidden'
+   );
 });
