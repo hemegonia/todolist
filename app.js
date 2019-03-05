@@ -131,7 +131,6 @@ app.get('/demo', function(req, res) {
          console.log(err);
          res.send('Delete user request failed');
       } else {
-         console.log('anon-' + users.length);
          req.body.username = 'anon-' + users.length;
          req.body.password = '123';
          User.register(
@@ -241,7 +240,6 @@ app.delete('/lists/:id/todo/:todo_id', isLoggedIn, isAuthor, function(
 //      list CRUD ROUTES
 //INDEX
 app.get('/lists', isLoggedIn, function(req, res) {
-   console.log(req.user.username);
    List.find({ 'author.username': req.user.username }, function(err, lists) {
       if (err) {
          console.log(err);
