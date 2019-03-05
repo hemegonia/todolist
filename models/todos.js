@@ -3,7 +3,6 @@ var List = require('./lists');
 
 var todoSchema = new mongoose.Schema({
    title: String,
-   author: String,
    creationDate: {
       type: Date,
       default: Date.now
@@ -15,6 +14,10 @@ var todoSchema = new mongoose.Schema({
    complete: {
       type: Boolean,
       default: false
+   },
+   author: {
+      id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      username: String
    }
 });
 

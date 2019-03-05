@@ -63,6 +63,14 @@ var updateList = function(id, res, next) {
    });
 };
 
+var isLoggedIn = function(req, res, next) {
+   if (req.user) {
+      next();
+   } else {
+      res.redirect('/login');
+   }
+};
+
 /////////////////////////////////////////////
 //       USER AUTH
 app.get('/login', function(req, res) {
@@ -86,6 +94,7 @@ app.post('/register', function(req, res) {
       function(err, user) {
          if (err) {
             console.log(err);
+            res.redirect('/lists');
          } else {
             passport.authenticate('local')(req, res, function() {
                res.redirect('/lists');
@@ -95,9 +104,39 @@ app.post('/register', function(req, res) {
    );
 });
 
+app.get('/demo', function(req, res) {
+   User.find({ username: new RegExp('anon-' + '*', 'i') }, function(
+      err,
+      users
+   ) {
+      if (err) {
+         console.log(err);
+         res.send('Delete user request failed');
+      } else {
+         console.log('anon-' + users.length);
+         req.body.username = 'anon-' + users.length;
+         req.body.password = '123';
+         User.register(
+            new User({ username: req.body.username }),
+            req.body.password,
+            function(err, user) {
+               if (err) {
+                  console.log(err);
+                  res.redirect('/lists');
+               } else {
+                  passport.authenticate('local')(req, res, function() {
+                     res.redirect('/lists');
+                  });
+               }
+            }
+         );
+      }
+   });
+});
+
 app.get('/logout', function(req, res) {
    req.logout();
-   res.redirect('/');
+   res.redirect('/lists');
 });
 
 /////////////////////////////////////////////
@@ -105,7 +144,7 @@ app.get('/logout', function(req, res) {
 
 //LANDING
 app.get('/', function(req, res) {
-   res.redirect('lists');
+   res.redirect('/demo');
 });
 
 /////////////////////////////////////////
@@ -114,7 +153,7 @@ app.get('/', function(req, res) {
 //SHOW
 //EDIT
 //UPDATE
-app.put('/lists/:id/todo/:todo_id', function(req, res) {
+app.put('/lists/:id/todo/:todo_id', isLoggedIn, function(req, res) {
    update = {
       title: req.body.title,
       complete: req.body.complete,
@@ -134,7 +173,7 @@ app.put('/lists/:id/todo/:todo_id', function(req, res) {
 
 //NEW
 //CREATE
-app.post('/lists/:id/todo', function(req, res) {
+app.post('/lists/:id/todo', isLoggedIn, function(req, res) {
    List.findById(req.params.id, function(err, list) {
       if (err) {
          console.log(err);
@@ -163,7 +202,7 @@ app.post('/lists/:id/todo', function(req, res) {
    });
 });
 //DELETE
-app.delete('/lists/:id/todo/:todo_id', function(req, res) {
+app.delete('/lists/:id/todo/:todo_id', isLoggedIn, function(req, res) {
    Todo.findById(req.params.todo_id, function(err, todo) {
       if (err) {
          console.log(err);
@@ -180,7 +219,7 @@ app.delete('/lists/:id/todo/:todo_id', function(req, res) {
 /////////////////////////////////////////
 //      list CRUD ROUTES
 //INDEX
-app.get('/lists', function(req, res) {
+app.get('/lists', isLoggedIn, function(req, res) {
    List.find({}, function(err, lists) {
       if (err) {
          console.log(err);
@@ -194,11 +233,11 @@ app.get('/lists', function(req, res) {
    });
 });
 //NEW
-app.get('/lists/new', function(req, res) {
+app.get('/lists/new', isLoggedIn, function(req, res) {
    res.render('./lists/new');
 });
 //SHOW
-app.get('/lists/:id', function(req, res) {
+app.get('/lists/:id', isLoggedIn, function(req, res) {
    List.findById(req.params.id)
       .populate('todos')
       .exec(function(err, list) {
@@ -216,7 +255,7 @@ app.get('/lists/:id', function(req, res) {
 //EDIT
 
 //UPDATE
-app.put('/lists/:id', function(req, res) {
+app.put('/lists/:id', isLoggedIn, function(req, res) {
    update = {
       title: req.body.title,
       complete: req.body.complete,
@@ -232,7 +271,7 @@ app.put('/lists/:id', function(req, res) {
    });
 });
 //CREATE
-app.post('/lists', function(req, res) {
+app.post('/lists', isLoggedIn, function(req, res) {
    List.create(
       {
          author: req.body.author,
@@ -249,7 +288,7 @@ app.post('/lists', function(req, res) {
    );
 });
 //DELETE
-app.delete('/lists/:id', function(req, res) {
+app.delete('/lists/:id', isLoggedIn, function(req, res) {
    List.findById(req.params.id, function(err, list) {
       if (err) {
          console.log(err);

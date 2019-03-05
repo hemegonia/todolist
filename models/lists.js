@@ -3,7 +3,6 @@ var Todo = require('./todos');
 
 var listSchema = new mongoose.Schema({
    title: String,
-   author: String,
    description: {
       type: String,
       default: ''
@@ -19,13 +18,17 @@ var listSchema = new mongoose.Schema({
 
    todos: [
       {
-         type: mongoose.Schema.ObjectId,
+         type: mongoose.Schema.Types.ObjectId,
          ref: 'Todo'
       }
    ],
    complete: {
       type: Boolean,
       default: false
+   },
+   author: {
+      id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      username: String
    }
 });
 

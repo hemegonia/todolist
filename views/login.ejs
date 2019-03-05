@@ -1,8 +1,26 @@
 <% include partials/header %>
 
+<a class="ui button green huge" href="/demo">
+   Try the demo! (no login required)
+</a>
+<div class="row"></div>
+<h4 class="ui divider horizontal">OR</h4>
+<div class="row"></div>
 <h1>Login</h1>
+
 <div class="row ui form">
    <form action="/login" method="POST">
+      <input type="text" name="username" placeholder="username" />
+      <input type="password" name="password" placeholder="password" />
+      <button class="ui button primary">Submit</button>
+   </form>
+</div>
+<div class="row"></div>
+<h4 class="ui divider horizontal">OR</h4>
+<div class="row"></div>
+<h1>Sign Up</h1>
+<div class="row ui form">
+   <form action="/register" method="POST">
       <input type="text" name="username" placeholder="username" />
       <input type="password" name="password" placeholder="password" />
       <button class="ui button primary">Submit</button>
