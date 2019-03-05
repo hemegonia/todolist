@@ -17,12 +17,16 @@
       <link rel="stylesheet" href="/stylesheets/main.css" />
    </head>
    <body>
-      <div class="ui top fixed menu">
+      <div class="ui grid row computer tablet only">
+      <div class="ui top fixed inverted menu">
          <a href="/lists" class="item">
             <i class="calendar fitted large check outline icon"></i>
          </a>
-         <a class="item active" href="/lists">
+         <a class="item " href="/lists">
             Home
+         </a>
+         <a class="item " href="/about">
+            About
          </a>
        
          <div class="right menu">
@@ -46,13 +50,45 @@
             <% } %>
          </div>
       </div>
+      </div>
+
+      <div class="ui grid row mobile only">
+         <div class="ui top fixed inverted menu">
+            
+            <div class="ui dropdown inverted item">
+               <i class="bars big icon"></i>
+               <div class=" menu">
+               <a class="item " href="/lists">
+                  Home
+               </a>
+               <a class="item " href="/about">
+                  About
+               </a>
+               <% if(!currentUser){ %>
+               <div class="divider"></div>
+               <a class="item" href="/demo">
+                  Try the Demo
+               </a>
+               <a class="item" href="/login">
+                  Login
+               </a>
+               <a class="item" href="/register">
+                  Sign Up
+               </a>
+               <% } %>
+            </div></div>
+            <div class="right menu">
+            <% if(currentUser){ %>
+               <a class="item" href="">
+                  Logged in as: <%= currentUser.username %>
+               </a>
+               <a class="item" href="/logout">
+                  Logout
+               </a>
+               <% } %>   
+            </div>
+      </div>
+      </div>
       <div id="body-container" class="ui container content grid">
          <div class=" sixteen wide mobile twelve wide computer centered column">
             <div class="ui grid centered">
-               <!-- <div class="ui breadcrumb">
-                  <a class="section">Home</a>
-                  <i class="right angle icon divider"></i>
-                  <a class="section">Lists</a>
-                  <i class="right angle icon divider"></i>
-                  <div class="active section">...</div>
-               </div> -->
