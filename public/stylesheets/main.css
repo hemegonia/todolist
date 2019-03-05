@@ -19,7 +19,7 @@ h2 {
    color: rgb(185, 185, 185);
 }
 .hidden {
-   display: none;
+   display: none !important;
 }
 
 button.complete.ui.button {
@@ -163,4 +163,19 @@ body .edit-container {
    70% {
       transform: scale(1);
    }
+}
+
+input[type='text']#new-item {
+   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+   border: 1px solid rgba(81, 203, 238, 1);
+}
+
+input[type='text']#new-item:focus {
+   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+   border: 2px solid rgba(81, 203, 238, 1);
+   color: lightgray;
+}
+
+#new-item:focus::placeholder {
+   color: lightgray;
 }

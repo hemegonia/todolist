@@ -25,3 +25,12 @@ var changeToInput = function() {
 query.forEach(function(button) {
    button.addEventListener('click', changeToInput);
 });
+
+var query = document.body.querySelector('#new-item');
+query.addEventListener('input', function() {
+   this.previousElementSibling.classList.remove('hidden');
+});
+query.addEventListener('blur', function() {
+   this.previousElementSibling.classList.add('hidden');
+   this.value = '';
+});
