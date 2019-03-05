@@ -64,11 +64,29 @@ var updateList = function(id, res, next) {
 };
 
 var isLoggedIn = function(req, res, next) {
-   if (req.user) {
-      next();
+   if (req.isAuthenticated()) {
+      return next();
    } else {
       res.redirect('/login');
    }
+};
+
+//Assumes list request
+var isAuthor = function(req, res, next) {
+   var author = '';
+   List.findById(req.params.id, function(err, list) {
+      if (err) {
+         console.log(err);
+         res.send('Could  not find user');
+      } else {
+         author = list.author.username;
+         if (author === req.user.username) {
+            return next();
+         } else {
+            res.send('You must be the author to do that');
+         }
+      }
+   });
 };
 
 /////////////////////////////////////////////
@@ -144,7 +162,7 @@ app.get('/logout', function(req, res) {
 
 //LANDING
 app.get('/', function(req, res) {
-   res.redirect('/demo');
+   res.redirect('/lists');
 });
 
 /////////////////////////////////////////
@@ -153,7 +171,7 @@ app.get('/', function(req, res) {
 //SHOW
 //EDIT
 //UPDATE
-app.put('/lists/:id/todo/:todo_id', isLoggedIn, function(req, res) {
+app.put('/lists/:id/todo/:todo_id', isLoggedIn, isAuthor, function(req, res) {
    update = {
       title: req.body.title,
       complete: req.body.complete,
@@ -173,7 +191,7 @@ app.put('/lists/:id/todo/:todo_id', isLoggedIn, function(req, res) {
 
 //NEW
 //CREATE
-app.post('/lists/:id/todo', isLoggedIn, function(req, res) {
+app.post('/lists/:id/todo', isLoggedIn, isAuthor, function(req, res) {
    List.findById(req.params.id, function(err, list) {
       if (err) {
          console.log(err);
@@ -181,7 +199,7 @@ app.post('/lists/:id/todo', isLoggedIn, function(req, res) {
       } else {
          Todo.create(
             {
-               author: 'test',
+               author: { id: req.user._id, username: req.user.username },
                title: req.body.title
             },
             function(err, todo) {
@@ -202,7 +220,10 @@ app.post('/lists/:id/todo', isLoggedIn, function(req, res) {
    });
 });
 //DELETE
-app.delete('/lists/:id/todo/:todo_id', isLoggedIn, function(req, res) {
+app.delete('/lists/:id/todo/:todo_id', isLoggedIn, isAuthor, function(
+   req,
+   res
+) {
    Todo.findById(req.params.todo_id, function(err, todo) {
       if (err) {
          console.log(err);
@@ -220,7 +241,7 @@ app.delete('/lists/:id/todo/:todo_id', isLoggedIn, function(req, res) {
 //      list CRUD ROUTES
 //INDEX
 app.get('/lists', isLoggedIn, function(req, res) {
-   List.find({}, function(err, lists) {
+   List.find({ author: { username: req.user.username } }, function(err, lists) {
       if (err) {
          console.log(err);
          res.send('Index list request failed');
@@ -237,7 +258,7 @@ app.get('/lists/new', isLoggedIn, function(req, res) {
    res.render('./lists/new');
 });
 //SHOW
-app.get('/lists/:id', isLoggedIn, function(req, res) {
+app.get('/lists/:id', isLoggedIn, isAuthor, function(req, res) {
    List.findById(req.params.id)
       .populate('todos')
       .exec(function(err, list) {
@@ -255,7 +276,7 @@ app.get('/lists/:id', isLoggedIn, function(req, res) {
 //EDIT
 
 //UPDATE
-app.put('/lists/:id', isLoggedIn, function(req, res) {
+app.put('/lists/:id', isLoggedIn, isAuthor, function(req, res) {
    update = {
       title: req.body.title,
       complete: req.body.complete,
@@ -274,7 +295,7 @@ app.put('/lists/:id', isLoggedIn, function(req, res) {
 app.post('/lists', isLoggedIn, function(req, res) {
    List.create(
       {
-         author: req.body.author,
+         author: { id: req.user._id, username: req.user.username },
          title: req.body.title
       },
       function(err, list) {
@@ -287,8 +308,9 @@ app.post('/lists', isLoggedIn, function(req, res) {
       }
    );
 });
+
 //DELETE
-app.delete('/lists/:id', isLoggedIn, function(req, res) {
+app.delete('/lists/:id', isLoggedIn, isAuthor, function(req, res) {
    List.findById(req.params.id, function(err, list) {
       if (err) {
          console.log(err);
