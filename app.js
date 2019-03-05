@@ -241,7 +241,8 @@ app.delete('/lists/:id/todo/:todo_id', isLoggedIn, isAuthor, function(
 //      list CRUD ROUTES
 //INDEX
 app.get('/lists', isLoggedIn, function(req, res) {
-   List.find({ author: { username: req.user.username } }, function(err, lists) {
+   console.log(req.user.username);
+   List.find({ 'author.username': req.user.username }, function(err, lists) {
       if (err) {
          console.log(err);
          res.send('Index list request failed');
