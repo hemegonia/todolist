@@ -89,6 +89,9 @@ var isAuthor = function(req, res, next) {
    });
 };
 
+app.get('/about', function(req, res) {
+   res.render('about');
+});
 /////////////////////////////////////////////
 //       USER AUTH
 app.get('/login', function(req, res) {
