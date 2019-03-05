@@ -173,7 +173,6 @@ input[type='text']#new-item {
 input[type='text']#new-item:focus {
    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
    border: 2px solid rgba(81, 203, 238, 1);
-   color: lightgray;
 }
 
 #new-item:focus::placeholder {
