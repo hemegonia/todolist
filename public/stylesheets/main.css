@@ -1,5 +1,5 @@
 .form-container {
-   max-width: 500px;
+   max-width: 400px;
 }
 
 form input {
@@ -165,7 +165,7 @@ body .edit-container {
    }
 }
 
-input[type='text']#new-item {
+/* input[type='text']#new-item {
    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
    border: 1px solid rgba(81, 203, 238, 1);
 }
@@ -173,8 +173,14 @@ input[type='text']#new-item {
 input[type='text']#new-item:focus {
    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
    border: 2px solid rgba(81, 203, 238, 1);
-}
+} */
 
 #new-item:focus::placeholder {
    color: lightgray;
+   text-align: center;
+}
+
+#new-item::placeholder {
+   color: lightgray;
+   text-align: center;
 }

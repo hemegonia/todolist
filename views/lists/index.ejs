@@ -3,18 +3,22 @@
 <div class="form-container row sixteen centered column">
    <form class="ui huge form" action="/lists" method="POST">
       <div class="field">
-         <label><i class="plus icon"></i>Create a New List</label>
+         <label>Create a New List</label>
          <label class="hidden"
             >Press Enter or Go <span> </span>
             <i class="down level alternate clockwise rotated icon"></i
          ></label>
-         <input
-            type="text"
-            name="title"
-            id="new-item"
-            placeholder="Type here and press 'Enter'"
-            autofocus
-         />
+         <div class="ui action focus input">
+            <input
+               type="text"
+               name="title"
+               id="new-item"
+               placeholder="Type here and press 'Enter'"
+               autofocus
+            /><button class="ui primary icon basic button">
+               <i class="plus icon"></i>
+            </button>
+         </div>
          <p>
             <em><small> Remember to add tasks to your new list!</small></em>
          </p>
