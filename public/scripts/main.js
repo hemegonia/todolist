@@ -29,17 +29,21 @@ query.forEach(function(button) {
 var query = document.body.querySelector('#new-item');
 if (query) {
    query.addEventListener('input', function() {
-      this.parentElement.previousElementSibling.classList.remove('hidden');
-      this.parentElement.previousElementSibling.previousElementSibling.classList.add(
-         'hidden'
-      );
+      this.nextElementSibling.innerHTML =
+         'Press Enter <i class="down level alternate clockwise rotated large icon"></i>';
    });
    query.addEventListener('blur', function() {
-      this.parentElement.previousElementSibling.classList.add('hidden');
-      this.value = '';
-      this.parentElement.previousElementSibling.previousElementSibling.classList.remove(
-         'hidden'
-      );
+      this.nextElementSibling.innerHTML = '<i class="plus icon"></i> Add New';
+   });
+}
+
+var query = document.body.querySelector('#new-form');
+if (query) {
+   query.addEventListener('submit', function(evt) {
+      if (document.body.querySelector('#new-item').value == '') {
+         evt.preventDefault();
+         window.location.reload();
+      }
    });
 }
 

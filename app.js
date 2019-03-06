@@ -305,7 +305,6 @@ app.post('/lists', isLoggedIn, function(req, res) {
             console.log(err);
             res.send('Create list request failed');
          } else {
-            console.log(list);
             res.redirect('/lists');
          }
       }

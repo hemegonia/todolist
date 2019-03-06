@@ -3,21 +3,23 @@
 <div class="form-container row sixteen centered column">
    <form
       class="ui huge form"
+      id="new-form"
       action="/lists/<%= list._id %>/todo"
       method="POST"
    >
       <div class="field">
-         <label>Create a New Task</label>
-         <label class="hidden">Press Enter or Go <span> </span>
-            <i
-               class="down level alternate clockwise rotated icon"></i></label>
          <div class="ui action focus input">
-            <input type="text" name="title" id="new-item"
-                   placeholder="Type here and press 'Enter'"
-                   autofocus /><button class="ui primary icon basic button">
-               <i class="plus icon"></i>
+            <input
+               type="text"
+               name="title"
+               id="new-item"
+               placeholder="Type here and press 'Enter'"
+               autofocus
+            /><button class="ui icon submit secondary button">
+               <i class="plus icon"></i> Add New List
             </button>
          </div>
+      </div>
    </form>
 </div>
 
