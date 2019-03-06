@@ -145,7 +145,15 @@ app.get('/demo', function(req, res) {
                   res.redirect('/lists');
                } else {
                   passport.authenticate('local')(req, res, function() {
-                     res.redirect('/lists');
+                     List.create(
+                        {
+                           author: { id: user._id, username: user.username },
+                           title: 'Sample Grocery List'
+                        },
+                        function() {
+                           res.redirect('/lists');
+                        }
+                     );
                   });
                }
             }
