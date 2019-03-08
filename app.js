@@ -125,42 +125,91 @@ app.post('/register', function(req, res) {
    );
 });
 
-app.get('/demo', function(req, res) {
-   User.find({ username: new RegExp('anon-' + '*', 'i') }, function(
-      err,
-      users
-   ) {
-      if (err) {
-         console.log(err);
-         res.send('Delete user request failed');
-      } else {
+const demoUser = (req, res, next) => {
+   let rsp = {};
+   User.find({ username: new RegExp('anon-' + '*', 'i') })
+      .then(users => {
          req.body.username = 'anon-' + users.length;
          req.body.password = '123';
-         User.register(
+         return User.register(
             new User({ username: req.body.username }),
-            req.body.password,
-            function(err, user) {
-               if (err) {
-                  console.log(err);
-                  res.redirect('/lists');
-               } else {
-                  passport.authenticate('local')(req, res, function() {
-                     List.create(
-                        {
-                           author: { id: user._id, username: user.username },
-                           title: 'Sample Grocery List'
-                        },
-                        function() {
-                           res.redirect('/lists');
-                        }
-                     );
-                  });
-               }
-            }
+            req.body.password
          );
-      }
-   });
-});
+      })
+      .then(savedUser => {
+         rsp.user = savedUser;
+         return new Promise((resolve, reject) => {
+            passport.authenticate('local', (err, user, info) => {
+               req.logIn(user, function(err) {
+                  if (err) {
+                     reject(err);
+                  }
+               });
+               resolve(user);
+            })(req, res);
+         });
+      })
+      .then(loggedUser => {
+         return List.create({
+            author: { id: rsp.user._id, username: rsp.user.username },
+            title: 'Sample Grocery List'
+         });
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: 'Banana'
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: 'Orange'
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: 'Apple'
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(list => {
+         res.redirect('/lists');
+      })
+      .catch(err => {
+         console.log(err);
+         res.redirect('/lists');
+      });
+};
+
+app.get('/demo', demoUser);
 
 app.get('/logout', function(req, res) {
    req.logout();
