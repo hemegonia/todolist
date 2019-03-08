@@ -144,15 +144,15 @@ const demoUser = (req, res, next) => {
                   if (err) {
                      reject(err);
                   }
+                  resolve(user);
                });
-               resolve(user);
             })(req, res);
          });
       })
       .then(loggedUser => {
          return List.create({
             author: { id: rsp.user._id, username: rsp.user.username },
-            title: 'Sample Grocery List'
+            title: 'Try to Edit Me - SAMPLE LIST'
          });
       })
       .then(list => {
@@ -162,22 +162,7 @@ const demoUser = (req, res, next) => {
                id: rsp.user._id,
                username: rsp.user.username
             },
-            title: 'Banana'
-         });
-      })
-      .then(todo => {
-         rsp.todo = todo;
-         rsp.list.todos.push(todo._id);
-         return rsp.list.save();
-      })
-      .then(list => {
-         rsp.list = list;
-         return Todo.create({
-            author: {
-               id: rsp.user._id,
-               username: rsp.user.username
-            },
-            title: 'Orange'
+            title: 'TRY - CLICK ME TO EDIT'
          });
       })
       .then(todo => {
@@ -192,7 +177,22 @@ const demoUser = (req, res, next) => {
                id: rsp.user._id,
                username: rsp.user.username
             },
-            title: 'Apple'
+            title: '<= TRY - CLICK GREEN CHECK TO COMPLETE'
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: 'TRY - CLICK RED TRASH TO DELETE =>'
          });
       })
       .then(todo => {
