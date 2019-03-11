@@ -192,7 +192,166 @@ const demoUser = (req, res, next) => {
                id: rsp.user._id,
                username: rsp.user.username
             },
-            title: 'CLICK RED TRASH TO DELETE =>'
+            title: 'CLICK RED TRASH TO DELETE =>',
+            complete: true
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(loggedUser => {
+         return List.create({
+            author: { id: rsp.user._id, username: rsp.user.username },
+            title: 'Archive Me - SAMPLE LIST'
+         });
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: 'CLICK ME TO EDIT'
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: '<= CLICK GREEN CHECK TO COMPLETE'
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: 'CLICK RED TRASH TO DELETE =>',
+            complete: true
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(loggedUser => {
+         return List.create({
+            author: { id: rsp.user._id, username: rsp.user.username },
+            title: 'Delete Me - SAMPLE LIST',
+            complete: true
+         });
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: 'CLICK ME TO EDIT'
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: '<= CLICK GREEN CHECK TO COMPLETE'
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: 'CLICK RED TRASH TO DELETE =>',
+            complete: true
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(loggedUser => {
+         return List.create({
+            author: { id: rsp.user._id, username: rsp.user.username },
+            title: 'Activate Me - SAMPLE LIST',
+            complete: true
+         });
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: 'CLICK ME TO EDIT'
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: '<= CLICK GREEN CHECK TO COMPLETE'
+         });
+      })
+      .then(todo => {
+         rsp.todo = todo;
+         rsp.list.todos.push(todo._id);
+         return rsp.list.save();
+      })
+      .then(list => {
+         rsp.list = list;
+         return Todo.create({
+            author: {
+               id: rsp.user._id,
+               username: rsp.user.username
+            },
+            title: 'CLICK RED TRASH TO DELETE =>',
+            complete: true
          });
       })
       .then(todo => {
